@@ -12,6 +12,7 @@ pipeline {
             ''' 
          }
      }
+    
     stage ('Check-Git-Secrets') {
       steps {
         sh 'rm trufflehog || true'
@@ -20,8 +21,16 @@ pipeline {
       }
     }
 
+    stage ('Source Composition Analysis') {
+      steps {
+        sh 'rm owasp || true'
+        sh 'wget https://raw.githubusercontent.com/Bharath-Kandukoori/juice-shop/master/Jenkinsfile'
+        sh 'chmod +x owasp-dependency-check.sh'
+        sh 'bash owasp-dependency-check.sh'
+        }
     }
-     }
+   }
+  }
     
    
 
